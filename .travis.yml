@@ -1,0 +1,21 @@
+---
+
+dist: bionic
+language: node_js
+node_js:
+  - lts/*
+
+jobs:
+  include:
+    - stage: test
+      name: markdown lint
+      install:
+        - npm i -g markdownlint-cli
+      script:
+        - find . -type f -name "*.md" | xargs -n 1 markdownlint
+    - stage: test
+      name: link check
+      install:
+        - npm i -g markdown-link-check
+      script:
+        - find . -type f -name "*.md" | xargs -n 1 markdown-link-check
